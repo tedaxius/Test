@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd">
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="9cbf994c-7faa-4283-bd3d-44b6b20fce42" >
+		<http:listener-connection host="localhost" port="${http.port}" />
+	</http:listener-config>
+	<configuration-properties doc:name="Configuration properties" doc:id="9034a87a-4e8d-4711-a7b5-38354b0064f1" file="config.properties" />
+	<flow name="testFlow" doc:id="88bc3d1f-61ee-4e54-ac66-ff98b72628c7" >
+		<http:listener doc:name="Listener" doc:id="cf0a8b39-bed2-4e8a-b4c2-aab51cc72fc4" config-ref="HTTP_Listener_config" path="/run"/>
+		<set-payload value="#[p('http.host') as String ++ &quot; hi &quot; as String++ p('http.port') as String ++ &quot; low &quot; ++ p('http.message') as String]" doc:name="Set Payload" doc:id="79baab15-e068-4238-8a85-502409b2d0e1" />
+	</flow>
+</mule>
